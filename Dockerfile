@@ -22,7 +22,7 @@ RUN apt-get install -y git git-core
 
 # SSH Daemon
 RUN apt-get install -y ssh
-RUN apt-get install -y mkdir /var/run/sshd
-RUN apt-get install -y chmod 0755 /var/run/sshd
+RUN mkdir /var/run/sshd
+RUN chmod 0755 /var/run/sshd
 
 ENTRYPOINT ["/bin/bash", "--login", "-c"]
