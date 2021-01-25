@@ -18,7 +18,7 @@ RUN apt-get update -y --fix-missing
 
 # Git 2.0
 RUN apt-get install -y software-properties-common 
-RUN apt-get install -y apt-get install -y git git-core
+RUN apt-get install -y git git-core
 
 # SSH Daemon
 RUN apt-get install -y ssh
