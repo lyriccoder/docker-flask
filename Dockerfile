@@ -25,7 +25,7 @@ RUN apt-get install -y ssh
 RUN mkdir /var/run/sshd
 RUN chmod 0755 /var/run/sshd
 
-ADD /hdd/veniq-web-service /tmp/veniq-web-service
+COPY /hdd/veniq-web-service /tmp/veniq-web-service
 RUN cd /tmp/veniq-web-service
 
 RUN pip3 install -r requirements.txt
