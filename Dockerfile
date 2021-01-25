@@ -25,4 +25,10 @@ RUN apt-get install -y ssh
 RUN mkdir /var/run/sshd
 RUN chmod 0755 /var/run/sshd
 
-ENTRYPOINT ["/bin/bash", "--login", "-c"]
+ADD /hdd/veniq-web-service /tmp/veniq-web-service
+RUN cd /tmp/veniq-web-service
+
+RUN pip3 install -r requirements.txt
+RUN export FLASK_APP=web_app.py
+
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
