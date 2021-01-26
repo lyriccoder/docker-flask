@@ -1,6 +1,9 @@
-FROM ubuntu:20.04
+FROM tiangolo/uwsgi-nginx-flask:python3.8
 LABEL Description="This is the image for flask EM API"
-WORKDIR /tmp
+WORKDIR /app
+COPY ./* /app/
+
+
 
 # UTF-8 locale
 RUN apt-get clean && \
@@ -25,11 +28,14 @@ RUN apt-get install -y ssh
 RUN mkdir /var/run/sshd
 RUN chmod 0755 /var/run/sshd
 
-RUN PWD
-#COPY /hdd/veniq-web-service /tmp/veniq-web-service
-#RUN cd /tmp/veniq-web-service
+COPY ./veniq-web-service/* /app/
+RUN cp /app/web_app.py /app/main.py
+RUN rm /app/web_app.py
+RUN ls -a /app
 
-RUN pip3 install -r requirements.txt
-RUN export FLASK_APP=web_app.py
+RUN apt-get install -y python3-pip
+RUN python3 -m pip install --upgrade pip
 
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
+RUN pip3 install -r /app/requirements.txt
+
+ENV NGINX_WORKER_PROCESSES 6
